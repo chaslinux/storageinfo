@@ -27,8 +27,14 @@ SDMODEL=$(sudo smartctl -a $SDDRIVE | grep "Device Model" | cut -c 19- )
 SDSIZE=$(sudo smartctl -a $SDDRIVE | grep "User Capacity:" | cut -c 19- )
 SDPOWERON=$(sudo smartctl -a $SDDRIVE | grep "Power_On_Hours" | cut -c 88- )
 
+# create the LaTeX file
 echo -e "Brand: \t\t"  $SDFAMILY >> /home/"$USER"/Desktop/storageinfo.tex
 echo -e "Model: \t\t" $SDMODEL >> /home/"$USER"/Desktop/storageinfo.tex
 echo -e "Serial No.: \t" $SDSERIAL >> /home/"$USER"/Desktop/storageinfo.tex
 echo -e "Size: \t\t" $SDSIZE >> /home/"$USER"/Desktop/storageinfo.tex
 echo -e "Hours On: \t\t" $SDPOWERON >> /home/"$USER"/Desktop/storageinfo.tex
+
+# make a PDF
+cd /home/"$USER"/Desktop
+pdflatex storageinfo.tex
+rm storageinfo.tex
